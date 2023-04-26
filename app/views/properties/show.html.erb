@@ -7,7 +7,7 @@
 
 <p>
   <strong>賃料:</strong>
-  <%= @property.rent %>
+  <%= @property.rent %>円
 </p>
 
 <p>
@@ -17,7 +17,7 @@
 
 <p>
   <strong>築年数:</strong>
-  <%= @property.age %>
+  <%= @property.age %>年
 </p>
 
 <p>
@@ -27,9 +27,9 @@
 
 <hr>
 
+<% num = 0 %>
 <% @property.stations.each do | station | %>
 
-  <% num = 0 %>
   <% num += 1 %>
   <h3><%= "最寄り駅#{num}" %></h3>
 

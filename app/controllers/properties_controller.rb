@@ -8,16 +8,19 @@ class PropertiesController < ApplicationController
 
   # GET /properties/1 or /properties/1.json
   def show
+    @stations = @property.stations
   end
 
   # GET /properties/new
   def new
     @property = Property.new
-    @property.stations.new
+    2.times { @property.stations.build }
   end
 
   # GET /properties/1/edit
   def edit
+    @property = Property.find(params[:id])
+    @property.stations.new
   end
 
   # POST /properties or /properties.json
@@ -26,7 +29,7 @@ class PropertiesController < ApplicationController
 
     respond_to do |format|
       if @property.save
-        format.html { redirect_to @property, notice: "Property was successfully created." }
+        format.html { redirect_to @property, notice: "物件を登録しました" }
         format.json { render :show, status: :created, location: @property }
       else
         format.html { render :new, status: :unprocessable_entity }
@@ -39,7 +42,7 @@ class PropertiesController < ApplicationController
   def update
     respond_to do |format|
       if @property.update(property_params)
-        format.html { redirect_to @property, notice: "Property was successfully updated." }
+        format.html { redirect_to @property, notice: "物件を編集しました." }
         format.json { render :show, status: :ok, location: @property }
       else
         format.html { render :edit, status: :unprocessable_entity }
@@ -52,7 +55,7 @@ class PropertiesController < ApplicationController
   def destroy
     @property.destroy
     respond_to do |format|
-      format.html { redirect_to properties_url, notice: "Property was successfully destroyed." }
+      format.html { redirect_to properties_url, notice: "物件を削除しました" }
       format.json { head :no_content }
     end
   end
@@ -65,6 +68,6 @@ class PropertiesController < ApplicationController
 
     # Only allow a list of trusted parameters through.
     def property_params
-      params.require(:property).permit(:name, :rent, :address, :age, :remark, stations_attributes: [:id, :line, :name, :time])
+      params.require(:property).permit(:name, :rent, :address, :age, :remark, stations_attributes: [:line, :name, :time, :property_id, :id, :_destroy,])
     end
 end
