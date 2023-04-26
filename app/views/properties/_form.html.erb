@@ -36,6 +36,25 @@
     <%= form.text_area :remark %>
   </div>
 
+    <%= form.fields_for :stations do | station | %>
+
+      <div class="field">
+        <%= station.label :line, "路線名" %>
+        <%= station.text_field :line %>
+      </div>
+
+      <div class="field">
+        <%= station.label :name, "駅名" %>
+        <%= station.text_field :name %>
+      </div>
+
+      <div class="field">
+        <%= station.label :time, "徒歩分数" %>
+        <%= station.text_field :time %>
+      </div>
+
+    <% end %>
+
   <div class="actions">
     <%= form.submit %>
   </div>
